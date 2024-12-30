@@ -24,7 +24,7 @@ Maven 3.5.3: Necessário para realizar o build do projeto Java
 # Desenvolvimento
 
 Com a ideia de desenvolver software de uma maneira fácil de manter e estender, seguimos com os princípios de SOLID.
-Nesse projeto os padrões utilizados foram Factory e Strategy.
+Nesse projeto os padrões utilizados foram DAO, Service, Factory e Strategy.
 
 
 # Executando
