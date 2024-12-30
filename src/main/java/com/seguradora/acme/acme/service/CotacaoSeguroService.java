@@ -3,6 +3,7 @@ package com.seguradora.acme.acme.service;
 import com.seguradora.acme.acme.entity.CotacaoSeguro;
 import com.seguradora.acme.acme.repository.CotacaoRepository;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,6 +21,10 @@ public class CotacaoSeguroService {
         }
 
         return true;
+    }
+
+    public boolean validaAssistencias(List<String> assistancesInformadas, CotacaoSeguro cotacao) {
+        return cotacao.getAssistances().containsAll(assistancesInformadas);
     }
 
     public double calculaTotalCoberturas(Map<String, Double> coverages, double totalCoverageAmount) {
