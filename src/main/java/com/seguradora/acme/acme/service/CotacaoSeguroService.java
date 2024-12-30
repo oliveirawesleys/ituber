@@ -24,6 +24,7 @@ public class CotacaoSeguroService {
     }
 
     public boolean validaAssistencias(List<String> assistancesInformadas, CotacaoSeguro cotacao) {
+        
         return cotacao.getAssistances().containsAll(assistancesInformadas);
     }
 
