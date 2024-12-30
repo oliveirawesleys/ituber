@@ -13,7 +13,7 @@ public class CotacaoSeguroService {
     private CotacaoRepository cotacaoRepository;
 
 
-    public boolean estaAtivo(UUID productId, UUID offerId) {
+    public boolean estaAtivo(UUID productId) {
 
         Optional<CotacaoSeguro> productOptional = cotacaoRepository.findById(productId);
         if (productOptional.isEmpty()) {
@@ -24,7 +24,7 @@ public class CotacaoSeguroService {
     }
 
     public boolean validaAssistencias(List<String> assistancesInformadas, CotacaoSeguro cotacao) {
-        
+
         return cotacao.getAssistances().containsAll(assistancesInformadas);
     }
 

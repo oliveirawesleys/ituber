@@ -2,6 +2,7 @@ package com.seguradora.acme.acme.controller;
 
 import com.seguradora.acme.acme.entity.CotacaoSeguro;
 import com.seguradora.acme.acme.repository.CotacaoRepository;
+import com.seguradora.acme.acme.service.CotacaoSeguroService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,8 @@ public class CotacaoController {
 
     private CotacaoRepository cotacaoRepository;
 
+    private CotacaoSeguroService cotacaoSeguroService;
+
     public CotacaoController(CotacaoRepository repository) {
         this.cotacaoRepository = repository;
     }
@@ -27,6 +30,10 @@ public class CotacaoController {
 
     @GetMapping(path = {"/{idCotacao}"})
     public ResponseEntity findById(@PathVariable Long idCotacao){
+
+        cotacaoSeguroService.estaAtivo(idCotacao);
+        cotacaoSeguroService.premioEstaEntreMaxEMin(idCotacao);
+
         return cotacaoRepository.findById(idCotacao)
                 .map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
