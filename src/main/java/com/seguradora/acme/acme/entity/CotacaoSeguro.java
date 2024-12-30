@@ -1,26 +1,73 @@
 package com.seguradora.acme.acme.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
+
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "cotacaoseguro")
 public class CotacaoSeguro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCotacao;
 
-    private Long product_id;
-    private Long offer_id;
+    @JsonProperty("product_id")
+    private UUID productId;
+
+    @JsonProperty("offer_id")
+    private UUID offerId;
     private String category;
-    private String total_monthly_premium_amount;
-    private String total_coverage_amount;
+
+    @JsonProperty("total_monthly_premium_amount")
+    private Double totalMonthlyPremiumAmount;
+
+    @JsonProperty("total_coverage_amount")
+    private Double totalCoverageAmount;
+
+    @Column(columnDefinition = "TEXT")  // Usando uma string para armazenar o JSON
+    private String coveragesJson;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "policy_assistances",
+            joinColumns = @JoinColumn(name = "insurance_policy_id")
+    )
+    @Column(name = "assistance_name")
+    private List<String> assistances;
+
+    @Embedded
+    private Customer customer;
+
+    public Map<String, Double> getCoverages() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(coveragesJson, Map.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void setCoverages(Map<String, Double> coverages) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            this.coveragesJson = objectMapper.writeValueAsString(coverages);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
