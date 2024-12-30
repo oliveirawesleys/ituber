@@ -7,8 +7,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
-
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -37,7 +35,6 @@ public class CotacaoSeguro {
     @JsonProperty("total_coverage_amount")
     private Double totalCoverageAmount;
 
-    @Column(columnDefinition = "TEXT")  // Usando uma string para armazenar o JSON
     private String coveragesJson;
 
     @ElementCollection
@@ -50,6 +47,8 @@ public class CotacaoSeguro {
 
     @Embedded
     private Customer customer;
+
+    private boolean isActive;
 
     public Map<String, Double> getCoverages() {
         try {
@@ -69,5 +68,4 @@ public class CotacaoSeguro {
             e.printStackTrace();
         }
     }
-
 }

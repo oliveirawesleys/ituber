@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/cotacao")
@@ -32,6 +34,16 @@ public class CotacaoController {
     @PostMapping
     public CotacaoSeguro create(@RequestBody CotacaoSeguro cotacao) {
         return cotacaoRepository.save(cotacao);
+    }
+
+    public boolean estaAtivo(UUID productId, UUID offerId) {
+
+        Optional<CotacaoSeguro> productOptional = cotacaoRepository.findById(productId);
+        if (productOptional.isEmpty()) {
+            throw new IllegalArgumentException("Produto está inativo.");
+        }
+
+        return true;
     }
 
 
