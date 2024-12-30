@@ -4,6 +4,9 @@
 Este projeto tem o proposito de receber e consultar cotações de seguro interagindo com outros sistemas. O comportamento do projeto é fazer uma
 API REST, validações de uma transação e por fim
 retornar um resultado (em formato JSON) que tenha relação com a linha de entrada.
+Sobre a solução, foi um desenvolimento progressivo e tentei ir progredindo por partes. Dividi os requisitos e fui adaptando os pontos de erros.
+
+
 
 Nele é ultilizado JDK11, Maven, Spring Boot e a IDE para desenvolvimento foi IntelliJ IDEA 2024.3.1.
 

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,15 +37,6 @@ public class CotacaoController {
         return cotacaoRepository.save(cotacao);
     }
 
-    public boolean estaAtivo(UUID productId, UUID offerId) {
-
-        Optional<CotacaoSeguro> productOptional = cotacaoRepository.findById(productId);
-        if (productOptional.isEmpty()) {
-            throw new IllegalArgumentException("Produto está inativo.");
-        }
-
-        return true;
-    }
 
 
     @GetMapping("/mensagem")
